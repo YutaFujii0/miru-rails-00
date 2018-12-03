@@ -1,0 +1,6 @@
+<% @orders.each_with_index do |order, index| %>
+  <div class="card-order-list <%= "active" if index == 0 %>">
+    <%= cl_image_tag(order.food.images[0], class: "img-circle list-#{index} img-top" ) %>
+    <div class="triangle-wrap"><i class="fas fa-sort-up"></i></div>
+  </div>
+<% end %>

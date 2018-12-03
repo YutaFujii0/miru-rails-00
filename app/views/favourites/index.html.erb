@@ -1,0 +1,47 @@
+<% content_for :navbar_left do %>
+  <% menu = Menu.where(user_id: current_user.id).last %>
+  <%= link_to menu_results_path(menu), class: "top-back" do %>
+    <i class="fas fa-chevron-left"></i>
+  <% end %>
+<% end %>
+<% content_for :navbar_center do %>
+  Favourites
+<% end %>
+<% content_for :meta_title do %>
+  Favourites
+<% end %>
+<!-- top bar -->
+<%= render 'shared/favtopbar' %>
+<div id="hello">
+  <div class="favourite-container">
+    <% counter = 0 %>
+    <% @favourited_foods.each do |favourited_food| %>
+      <div class="content">
+        <div class="img-fav">
+          <%= link_to food_path(favourited_food), class: "link-food" do %>
+            <% if favourited_food.images.nil? %>
+              <%= image_tag(@food_images[:image_paths][0], class: "img") %>
+            <% else %>
+              <%= image_tag(favourited_food.images[0], class: "img") %>
+            <% end %>
+          <% end %>
+        </div>
+
+
+          <%= link_to food_path(favourited_food.id), class: "text-content-a" do %>
+          <div class="text-content">
+            <dl>
+              <dt><%= favourited_food.en %></dt>
+              <dd class="search-food-desc"><%= favourited_food.name %></dd>
+            </dl>
+            <div class="show-page"><i class="fas fa-angle-right "></i></div>
+          </div>
+          <% end %>
+
+        </div>
+      <% end %>
+
+  </div>
+</div>
+<!-- // hello -->
+<%= render 'shared/favbotbar' %>

@@ -1,0 +1,38 @@
+<!-- title for navbar -->
+<% content_for :meta_title do %>
+  Order List
+<% end %>
+<% content_for :navbar_left do %>
+  <%= link_to menu_results_path(@menu), class: "top-back" do %>
+    <i class="fas fa-chevron-left"></i>
+  <% end %>
+<% end %>
+<% content_for :navbar_center do %>
+  ORDER
+<% end %>
+
+<!-- NEW top bar -->
+<%= render 'shared/favtopbar' %>
+<div class="container-body">
+  <div class="result-top-wrap">
+    <div class="banner result-top">
+      <%= render 'order_list_banner', object: [@orders] %>
+    </div>
+  </div>
+  <div class="container order-body">
+    <%= render 'order_list_body', object: [@orders, @food_title] %>
+  </div>
+  <%= render 'order_list_summary', object: [@orders, @food_title] %>
+</div>
+<!-- NEW footer -->
+<%= render 'shared/favbotbar' %>
+<%= javascript_pack_tag 'results/order' %>
+
+<script>
+  $(document).ready(function() {
+    var thumwrap = $('.result-top');
+    var thumlist = $('.card-order-list').length;
+    var thumwidth = thumlist * 88;
+    $(thumwrap).css({"min-width": "375px", "width": thumwidth});
+});
+</script>

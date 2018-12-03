@@ -1,0 +1,19 @@
+// Import Google fonts
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500|Open+Sans:400,600');
+
+// Define fonts for body and headers
+$body-font: 'Open Sans', 'M PLUS 1p', sans-serif;
+$headers-font: 'Open Sans', 'M PLUS 1p', sans-serif;
+
+// To use a font file (.woff) uncomment following lines
+// @font-face {
+//   font-family: "Font Name";
+//   src: font-url('FontFile.eot');
+//   src: font-url('FontFile.eot?#iefix') format('embedded-opentype'),
+//        font-url('FontFile.woff') format('woff'),
+//        font-url('FontFile.ttf') format('truetype')
+// }
+// $my-font: "Font Name";
+
+$font-size-emphasize: 36px;
+$font-size-paragraph: 12px;

@@ -1,0 +1,172 @@
+.main-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+
+  h1 {
+    position: absolute;
+    left: 50%;
+    top: 12%;
+    z-index: 2;
+    width: 200px;
+    height: 200px;
+    margin: 0 0 0 -100px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  h1.alt {
+    left: 50%;
+    top: 15%;
+    width: 250px;
+    height: 250px;
+    margin: 0 0 0 -125px;
+  }
+
+  #video-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  #video-container.off {display:none;}
+
+  .video,
+  .canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    width: auto;
+    min-height: 100%;
+    height: auto;
+  }
+
+  #form-container {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+
+    label {
+      position: fixed;
+      width: 100px;
+      height: 100px;
+      top: 68%;
+      left: 50%;
+      margin: 0 0 0 -50px;
+
+      background: url("https://res.cloudinary.com/kayimg/image/upload/v1543399515/camera-btn.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+      font-size: 0;
+      line-height: 0;
+      padding: 0;
+      transform: scale(1);
+      border-radius: 100px;
+      animation: scales 5000ms infinite;
+
+    }
+
+
+    .form-control-file {
+      position: absolute;
+      width: 0;
+      height: 0;
+      font-size: 0;
+      line-height: 0;
+    }
+
+    .btn {
+      visibility: hidden;
+      font-size: 0;
+      line-height: 0;
+      width: 0;
+      height: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .form-group {
+      margin: 0;
+    }
+  }
+}
+
+#loading-layer {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom:0;
+  left: 0;
+  z-index: 100;
+  background: #1991EC;
+  // opacity:0;
+  -webkit-transition: width 0.2s;
+  /* Safari */
+  -webkit-transition-delay: 0.2s;
+  /* Safari */
+  transition: all 0.2s ease;
+
+  .img {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    width: 400px;
+    height: 320px;
+    margin: -160px 0 0 -200px;
+
+    div {
+      color: #fff;
+      text-align: center;
+    }
+  }
+}
+
+#loading-layer.on {
+  display:block;
+}
+
+@keyframes scales {
+
+  0%,
+  40% {
+
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  60% {
+    transform: scale(1);
+  }
+
+  70% {
+    transform: scale(1.1);
+  }
+
+  80% {
+    transform: scale(1);
+  }
+
+  90% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

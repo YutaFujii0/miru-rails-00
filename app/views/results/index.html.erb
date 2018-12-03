@@ -1,0 +1,128 @@
+<% content_for :meta_title do %>
+  Results
+<% end %>
+<% content_for :navbar_left do %>
+  <%= link_to request.referer, class: "top-back" do %>
+    <i class="fas fa-chevron-left"></i>
+  <% end %>
+<% end %>
+<% content_for :navbar_center do %>
+  Result
+<% end %>
+<% content_for :navbar_right do %>
+  <a id="modal-btn"><i class="fas fa-question-circle"></i></a>
+<% end %>
+
+<%= render 'shared/favtopbar' %>
+<!-- body -->
+<div id="hello">
+  <div class="search-container" >
+    <% @sort_popularity.each do |result| %>
+      <div class="content" id="<%= result.food_id %>">
+        <!-- overlay -->
+        <div onclick="imageClicked(<%= result.id %>, <%= result.food_id%> )" class="img-div"  >
+          <%= link_to toggle_result_path(result), method: :patch, remote: true do %>
+            <div class="overlay not-clicked" id="<%= result.id %>">
+              <div class="overlay-container">
+                <div class="icons">
+                  <%= image_tag "check.png" %>
+                </div>
+              </div>
+            </div>
+            <%= cl_image_tag(result.food.images[0], class: "img") %>
+          <% end %>
+        </div>
+        <!-- list items -->
+        <%= link_to results_food_show_path(result.food_id, result), class: "text-content-a" do %>
+        <div class="text-content">
+          <dl>
+            <dt><%= result.food.en %></dt>
+            <dd class="search-food-desc"><%= result.food.name %></dd>
+          </dl>
+          <div class="show-page"><i class="fas fa-angle-right "></i></div>
+        </div>
+        <% end %>
+      </div><!-- content -->
+    <% end %>
+  </div><!-- // search-container -->
+</div><!-- // hello -->
+
+<%= render 'shared/favbotbar' %>
+
+<!-- modal -->
+<div id="my-modal" class="modal">
+  <div class="modal-content up">
+    <div class="modal-body">
+      <span class="close"></span>
+      <i class="fas fa-arrow-left"></i>
+      <p>Tap on the pic<br> to order!</p>
+    </div>
+  </div>
+  <div class="modal-content down">
+    <div class="modal-body">
+      <span class="close"></span>
+      <p>Tap on the icon below to confirm your order</p>
+      <i class="fas fa-arrow-down"></i>
+    </div>
+  </div>
+</div>
+
+<script>
+  function imageClicked(num, foodname){
+      let image = document.getElementById(num);
+      let textImage = document.getElementById(foodname);
+      image.classList.add('clicked');
+      image.classList.remove("not-clicked");
+      textImage.classList.add("some");
+    }
+    var see_ordered = <%= raw @all %>;
+    see_ordered.forEach((result)=>{
+      if(result.order){
+        imageClicked(result.id, result.food_id);
+      }
+    });
+</script>
+<script>
+  var clicked = false;
+  function imageClicked(num, foodname){
+      const image = document.getElementById(num);
+      const textImage = document.getElementById(foodname);
+      if (image.classList.contains('clicked')) {
+        image.classList.remove('clicked');
+        image.classList.add("not-clicked");
+        textImage.classList.remove("some");
+      } else {
+        image.classList.add('clicked');
+        image.classList.remove("not-clicked");
+        textImage.classList.add("some");
+      }
+  }
+</script>
+<script>
+  // Get DOM Elements
+  const modal = document.querySelector('#my-modal');
+  const modalBtn = document.querySelector('#modal-btn');
+  const closeBtn = document.querySelector('.close');
+
+  // Events
+  modalBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', outsideClick);
+
+  // Open
+  function openModal() {
+    modal.style.display = 'block';
+  }
+
+  // Close
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  // Close If Outside Click
+  function outsideClick(e) {
+    if (e.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+</script>

@@ -1,0 +1,18 @@
+<div class="order-list-summary">
+  <table>
+    <thead>
+      <tr>
+        <th>MENUS</th>
+        <th>QUANTITY</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each_with_index do |order, index| %>
+        <tr>
+          <!-- need modifying with @food_title -->
+          <td clas="not-big"><%= order.food.name %><span class="english"> (<%= order.food.en %>)</span></td>
+          <td class="<%= "list-#{index} text-center bold" %>"></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </div>

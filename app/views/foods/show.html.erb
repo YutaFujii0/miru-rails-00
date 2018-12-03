@@ -1,0 +1,68 @@
+<% content_for :navbar_left do %>
+  <%= link_to request.referer, class: "top-back" do %>
+    <i class="fas fa-chevron-left"></i>
+  <% end %>
+<% end %>
+<% content_for :navbar_center do %>
+  <%= @food.en.nil? ? @food.name : @food.en %>
+<% end %>
+<% content_for :meta_title do %>
+  <%= @food.name %>
+<% end %>
+
+<%= render 'shared/favtopbar' %>
+<!-- contents -->
+<div class="container-fluid food-show">
+  <!-- cover -->
+  <div class="food-pic"><%= image_tag(@food.images[0]) %></div>
+  <div class="add-cart" id="cart-favourite">
+      <% if @menu %>
+        <% if @result.order.zero? %>
+          <%= button_to toggle_result_path(@result),remote: true, method: :patch, class: "bottom-icon icon-cart " do %>
+            <i class="fas fa-shopping-bag"></i>
+          <% end %>
+        <% else %>
+          <%= button_to toggle_result_path(@result),remote: true, method: :patch, class: "bottom-icon icon-cart added" do %>
+            <i class="fas fa-shopping-bag"></i>
+          <% end %>
+        <% end %>
+      <% end %>
+    <!-- favorite btn -->
+    <div class="favourite-buttom">
+      <% if @favourite %>
+        <%= button_to favourite_path(@favourite), method: :delete, remote: true, class: "bottom-icon added" do %>
+          <i class="fas fa-heart"></i>
+        <% end %>
+      <% else %>
+        <%= button_to food_favourites_path(@food), method: :post, remote: true, class: "bottom-icon", id: "add-heart" do %>
+          <i class="fas fa-heart"></i>
+        <% end %>
+      <% end %>
+    </div>
+    <!--
+      <script>
+        $(function() {
+          $("#add-heart").on("click", function() {
+            $("#add-heart .fa-heart").toggleClass("added");
+          });
+        });
+      </script>
+      -->
+  </div>
+  <!-- desc -->
+  <div class="food-desc">
+    <dl>
+      <dt><%= @food.en %></dt>
+      <dd class="smaller-japanese"><%= @food.name %></dd>
+    </dl>
+  </div>
+  <!-- extra img -->
+  <ul class="foods-extra">
+    <% @food.images.each do |image| %>
+      <li><%= cl_image_tag(image, class: "food-card") %></li>
+    <% end %>
+  </ul>
+</div>
+<!-- footer -->
+<%= render 'shared/favbotbar', object: @menu %>
+<%= javascript_pack_tag 'foods/show' %>
